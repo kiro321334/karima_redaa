@@ -12,7 +12,7 @@ export const categories = ["All", "Skincare", "Perfume", "Fashion", "Food"];
 
 export const projects = [
   p("929", "929", "Food", "929", "18.4K"),
-  p("asnr perfumes", "ASNR Perfumes", "Perfume", "ASNR Perfumes", "42.7K"),
+  p("asmr perfumes", "ASMR Perfumes", "Perfume", "ASMR Perfumes", "42.7K"),
   p("be you", "Be You", "Skincare", "Be You", "27.3K"),
   p("black friday", "Black Friday", "Skincare", "Black Friday", "63.8K"),
   p("brand elhawanem", "Brand Elhawanem", "Fashion", "Brand Elhawanem", "35.2K"),

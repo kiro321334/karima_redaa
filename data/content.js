@@ -2,12 +2,32 @@ export const stats = [
   ["30+", "Brands Partnered"],
   ["4", "Core Niches"],
   ["100+", "Produced Videos"],
-  ["10K+", "Community Reach"],
+  ["21M+", "Community Reach"],
 ];
 export const brandRows = [
-  ["Julivie.cosmetics", "Nur.scent", "Mood", "Era fragrances_,streeks.eg", "smoothieparadise.egypt", "miso sushi", "Knopa.gallery", "linen.denim28", "kovi_eg", "meloura_eg"],
-  ["Scent_hup", "bu.store.beyou","ginza.sushii.eg", "memories.restaurant_cafe","kayan.scarf", "great_skirt", "strivv.designs", "kinfit.store", "Hodaly"],
-
+  [
+    "Julivie.cosmetics",
+    "Nur.scent",
+    "Mood",
+    "Era fragrances_,streeks.eg",
+    "smoothieparadise.egypt",
+    "miso sushi",
+    "Knopa.gallery",
+    "linen.denim28",
+    "kovi_eg",
+    "meloura_eg",
+  ],
+  [
+    "Scent_hup",
+    "bu.store.beyou",
+    "ginza.sushii.eg",
+    "memories.restaurant_cafe",
+    "kayan.scarf",
+    "great_skirt",
+    "strivv.designs",
+    "kinfit.store",
+    "Hodaly",
+  ],
 ];
 export const services = [
   ["📹", "UGC Videos", "High-retention social-first videos"],
