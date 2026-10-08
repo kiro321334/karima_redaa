@@ -21,7 +21,7 @@ export default function Hero() {
       <div className="relative w-full px-5 pb-6 md:mx-auto md:max-w-6xl md:px-12">
         <h2 className="fade-up d1 max-w-2xl font-serif text-[1.5rem] font-medium leading-[1.2] md:text-6xl">
           Your brand deserves content that doesn’t just look good — it{" "}
-          <em className="underline decoration-1 underline-offset-4 text-yellow">sells.</em>
+          <em className="underline decoration-1 underline-offset-4 text-[#f9ff00]">sells.</em>
         </h2>
         <p className="fade-up d2 mt-4 text-sm">
           <b>Karima Reda</b> | UGC Creator, Influencer & Content Creator
