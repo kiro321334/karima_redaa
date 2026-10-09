@@ -30,7 +30,7 @@ export default function Hero() {
         </p>
         <div className="fade-up d3 mt-5 flex gap-3">
           <a
-            href="#portfolio"
+            href="#projects"
             className="flex-1 rounded-full bg-wine px-6 py-3.5 text-center text-sm font-medium shadow-lg ring-1 ring-white/20 transition hover:scale-[1.03] md:flex-none"
           >
             View My Work

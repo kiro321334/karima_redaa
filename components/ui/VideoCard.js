@@ -14,6 +14,9 @@ export default function VideoCard({ p }) {
               src={p.video}
               poster={p.poster}
               controls
+              controlsList="nodownload"
+              disablePictureInPicture
+              onContextMenu={(e) => e.preventDefault()}
               autoPlay
               playsInline
               preload="metadata"

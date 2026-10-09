@@ -1,7 +1,7 @@
 import { site } from "@/lib/site";
 
 const msg = encodeURIComponent(
-  "Hi Karima, I’d like to collaborate on a UGC / influencer campaign for my brand."
+  "Hi Karima, I’d like to collaborate on a UGC / influencer campaign for my brand.",
 );
 const wa = `${site.whatsapp}?text=${msg}`;
 
@@ -9,7 +9,7 @@ const links = [
   ["Follow", "@karima-redaa", site.instagram],
   ["Watch", "TikTok Reel", site.tiktok],
   ["Inquiries", "Email Karima", `mailto:${site.email}`],
-  ["Browse", "View My Work", "#portfolio"],
+  ["Browse", "View My Work", "#projects"],
 ];
 
 export default function Contact() {
