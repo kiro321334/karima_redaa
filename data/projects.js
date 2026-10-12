@@ -5,7 +5,7 @@ const p = (id, name, category, title, views) => ({
   title,
   views,
   video: `/videos/${id}.mp4`,
-  poster: "/karima.jpg",
+  poster: "/profile.jpeg",
 });
 
 export const categories = ["All", "Skincare", "Perfume", "Fashion", "Food"];

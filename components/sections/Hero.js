@@ -3,7 +3,7 @@ export default function Hero() {
   return (
     <section className="relative flex h-svh min-h-[560px] items-end overflow-hidden bg-ink text-white">
       <Image
-        src="/karima.jpg"
+        src="/profile.jpeg"
         alt="Karima Reda, UGC creator and influencer in Cairo"
         fill
         priority
