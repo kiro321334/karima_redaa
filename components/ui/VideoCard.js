@@ -1,9 +1,13 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import { imgUrl, isCld } from "@/lib/cld";
 
 export default function VideoCard({ p }) {
   const [on, setOn] = useState(false);
+  const rawPoster = p.poster || "/profile.jpeg";
+  const remote = isCld(rawPoster);
+  const poster = remote ? imgUrl(rawPoster, 480) : rawPoster;
 
   return (
     <div>
@@ -12,7 +16,7 @@ export default function VideoCard({ p }) {
           {on ? (
             <video
               src={p.video}
-              poster={p.poster}
+              poster={poster}
               controls
               controlsList="nodownload"
               disablePictureInPicture
@@ -30,16 +34,17 @@ export default function VideoCard({ p }) {
               className="group absolute inset-0 block h-full w-full text-left"
             >
               <Image
-                src={p.poster}
+                src={poster}
                 alt={`${p.name} ${p.category} UGC video by Karima Reda`}
                 fill
+                unoptimized={remote}
                 sizes="(min-width:768px) 33vw, 50vw"
                 className="object-cover transition duration-500 group-hover:scale-105"
               />
               <span className="absolute inset-0 bg-gradient-to-t from-[#7a0f3a]/95 via-wine/40 to-wine/25" />
 
               <span className="absolute left-3 top-3 rounded-full bg-[#f6d9e0] px-3 py-1 text-[11px] font-bold tracking-[.12em] text-wine">
-                {p.category.toUpperCase()}
+                {String(p.category || "").toUpperCase()}
               </span>
 
               <span className="ring absolute left-1/2 top-1/2 grid h-14 w-14 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-wine ring-4 ring-white/40 transition group-hover:scale-110">

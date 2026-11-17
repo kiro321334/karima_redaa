@@ -8,19 +8,22 @@ import Portfolio from "@/components/sections/Projects";
 import Workflow from "@/components/sections/Workflow";
 import Contact from "@/components/sections/Contact";
 import ProductShowcase from "@/components/sections/ProductShowcase";
-export default function Home() {
+import { getContent } from "@/lib/content";
+
+export default async function Home() {
+  const { projects, categories, products, texts } = await getContent();
   return (
     <>
       <Header />
       <main id="top">
-        <Hero />
-        <About />
-        <Brands />
-        <Services />
-        <Portfolio />
-        <ProductShowcase />
-        <Workflow />
-        <Contact />
+        <Hero t={texts.hero} />
+        <About t={texts.about} />
+        <Brands rows={texts.brands} />
+        <Services items={texts.services} />
+        <Portfolio projects={projects} categories={categories} />
+        <ProductShowcase products={products} />
+        <Workflow items={texts.steps} />
+        <Contact t={texts.contact} />
       </main>
       <Footer />
     </>

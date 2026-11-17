@@ -1,5 +1,4 @@
 import SectionHeading from "@/components/ui/SectionHeading";
-import { brandRows } from "@/data/content";
 const seps = [
   <span key="a" className="text-wine">
     ✦
@@ -27,12 +26,14 @@ function Row({ names, rev, off }) {
     </div>
   );
 }
-export default function Brands() {
+export default function Brands({ rows = [] }) {
+  const list = rows.filter((r) => r.length);
+  if (!list.length) return null;
   return (
     <section aria-label="Brand collaborations" className="px-5 py-14">
       <SectionHeading eyebrow="Collaborations" a="Brands That" b="Trust Me" />
       <div className="mx-auto mt-8 grid max-w-3xl gap-4 rounded-2xl border border-gold/20 bg-[#f1e8da] py-5">
-        {brandRows.map((r, i) => (
+        {list.map((r, i) => (
           <Row key={i} names={r} rev={i % 2 === 1} off={i} />
         ))}
       </div>

@@ -2,9 +2,8 @@
 import { useState } from "react";
 import SectionHeading from "@/components/ui/SectionHeading";
 import VideoCard from "@/components/ui/VideoCard";
-import { projects, categories } from "@/data/projects";
 const LIMIT = 6;
-export default function Projects() {
+export default function Projects({ projects = [], categories = ["All"] }) {
   const [tab, setTab] = useState("All");
   const [all, setAll] = useState(false);
   const list = projects.filter((p) => tab === "All" || p.category === tab);

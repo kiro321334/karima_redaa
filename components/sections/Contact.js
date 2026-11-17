@@ -1,18 +1,23 @@
 import { site } from "@/lib/site";
 
-const msg = encodeURIComponent(
-  "Hi Karima, I’d like to collaborate on a UGC / influencer campaign for my brand.",
-);
-const wa = `${site.whatsapp}?text=${msg}`;
+const http = (u, fallback) => (/^https?:\/\//i.test(u || "") ? u : fallback);
 
-const links = [
-  ["Follow", "@karima-redaa", site.instagram],
-  ["Watch", "TikTok Reel", site.tiktok],
-  ["Inquiries", "Email Karima", `mailto:${site.email}`],
-  ["Browse", "View My Work", "#projects"],
-];
+export default function Contact({ t = {} }) {
+  const digits = (t.whatsapp || "").replace(/\D/g, "");
+  const waBase = digits ? `https://wa.me/${digits}` : site.whatsapp;
+  const msg = encodeURIComponent(
+    "Hi Karima, I’d like to collaborate on a UGC / influencer campaign for my brand.",
+  );
+  const wa = `${waBase}${waBase.includes("?") ? "&" : "?"}text=${msg}`;
+  const email = (t.email || "").includes("@") ? t.email.trim() : site.email;
 
-export default function Contact() {
+  const links = [
+    ["Follow", "@karima-redaa", http(t.instagram, site.instagram)],
+    ["Watch", "TikTok Reel", http(t.tiktok, site.tiktok)],
+    ["Inquiries", "Email Karima", `mailto:${email}`],
+    ["Browse", "View My Work", "#projects"],
+  ];
+
   return (
     <section
       id="contact"

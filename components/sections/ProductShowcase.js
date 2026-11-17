@@ -2,139 +2,9 @@
 
 import Image from "next/image";
 import { useRef } from "react";
+import { imgUrl, isCld } from "@/lib/cld";
 
-const products = [
-  {
-    src: "/products/product-01.webp",
-    alt: "Women scarf design 1",
-  },
-  {
-    src: "/products/product-02.webp",
-    alt: "Women scarf design 2",
-  },
-  {
-    src: "/products/product-03.webp",
-    alt: "Women scarf design 3",
-  },
-  {
-    src: "/products/product-04.webp",
-    alt: "Women scarf design 4",
-  },
-  {
-    src: "/products/product-05.webp",
-    alt: "Women scarf design 5",
-  },
-  {
-    src: "/products/product-06.webp",
-    alt: "Women scarf design 6",
-  },
-  {
-    src: "/products/product-07.webp",
-    alt: "Women scarf design 7",
-  },
-  {
-    src: "/products/product-08.webp",
-    alt: "Women scarf design 8",
-  },
-  {
-    src: "/products/product-09.webp",
-    alt: "Women scarf design 9",
-  },
-  {
-    src: "/products/product-10.webp",
-    alt: "Women scarf design 10",
-  },
-  {
-    src: "/products/product-11.webp",
-    alt: "Women scarf design 11",
-  },
-  {
-    src: "/products/product-12.webp",
-    alt: "Women scarf design 12",
-  },
-  {
-    src: "/products/product-13.webp",
-    alt: "Women scarf design 13",
-  },
-  {
-    src: "/products/product-14.webp",
-    alt: "Women scarf design 14",
-  },
-  {
-    src: "/products/product-15.webp",
-    alt: "Women scarf design 15",
-  },
-  {
-    src: "/products/product-16.webp",
-    alt: "Women scarf design 16",
-  },
-  {
-    src: "/products/product-17.webp",
-    alt: "Women scarf design 17",
-  },
-  {
-    src: "/products/product-18.webp",
-    alt: "Women scarf design 18",
-  },
-  {
-    src: "/products/product-19.webp",
-    alt: "Women scarf design 19",
-  },
-  {
-    src: "/products/product-20.webp",
-    alt: "Women scarf design 20",
-  },
-  {
-    src: "/products/product-21.webp",
-    alt: "Women scarf design 21",
-  },
-  {
-    src: "/products/product-22.webp",
-    alt: "Women scarf design 22",
-  },
-  {
-    src: "/products/product-23.webp",
-    alt: "Women scarf design 23",
-  },
-  {
-    src: "/products/product-24.webp",
-    alt: "Women scarf design 24",
-  },
-  {
-    src: "/products/product-25.webp",
-    alt: "Women scarf design 25",
-  },
-  {
-    src: "/products/product-26.webp",
-    alt: "Women scarf design 26",
-  },
-  {
-    src: "/products/product-27.webp",
-    alt: "Women scarf design 27",
-  },
-  {
-    src: "/products/product-28.webp",
-    alt: "Women scarf design 28",
-  },
-  {
-    src: "/products/product-29.webp",
-    alt: "Women scarf design 29",
-  },
-  {
-    src: "/products/product-30.webp",
-    alt: "Women scarf design 30",
-  },
-  {
-    src: "/products/product-31.webp",
-    alt: "Women scarf design 31",
-  },
-  {
-    src: "/products/product-32.webp",
-    alt: "Women scarf design 32",
-  },
-];
-
-export default function ProductShowcase() {
+export default function ProductShowcase({ products = [] }) {
   const carouselRef = useRef(null);
 
   const scrollCarousel = (direction) => {
@@ -145,6 +15,8 @@ export default function ProductShowcase() {
       behavior: "smooth",
     });
   };
+
+  if (!products.length) return null;
 
   return (
     <section
@@ -171,23 +43,27 @@ export default function ProductShowcase() {
           dir="ltr"
           className="flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain px-5 pb-4 md:gap-5 md:px-12 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
-          {products.map((product, index) => (
-            <div
-              key={product.src}
-              className="group w-[70%] shrink-0 snap-start sm:w-[46%] md:w-[31%] lg:w-[23%]"
-            >
-              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-wine/10 bg-white shadow-sm transition duration-500 group-hover:-translate-y-1 group-hover:shadow-xl md:rounded-3xl">
-                <Image
-                  src={product.src}
-                  alt={product.alt}
-                  fill
-                  sizes="(max-width: 640px) 76vw, (max-width: 768px) 46vw, (max-width: 1024px) 31vw, 23vw"
-                  priority={index === 0}
-                  className="object-contain p-4 transition-transform duration-500 group-hover:scale-105 md:p-5"
-                />
+          {products.map((product, index) => {
+            const remote = isCld(product.src);
+            return (
+              <div
+                key={product.id || product.src}
+                className="group w-[70%] shrink-0 snap-start sm:w-[46%] md:w-[31%] lg:w-[23%]"
+              >
+                <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-wine/10 bg-white shadow-sm transition duration-500 group-hover:-translate-y-1 group-hover:shadow-xl md:rounded-3xl">
+                  <Image
+                    src={remote ? imgUrl(product.src, 640) : product.src}
+                    alt={product.alt}
+                    fill
+                    unoptimized={remote}
+                    sizes="(max-width: 640px) 76vw, (max-width: 768px) 46vw, (max-width: 1024px) 31vw, 23vw"
+                    priority={index === 0}
+                    className="object-contain p-4 transition-transform duration-500 group-hover:scale-105 md:p-5"
+                  />
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
         {/* Carousel Controls */}
         <div className="flex shrink-0 gap-2 mx-auto mt-6 w-max items-center justify-center md:mt-8">
