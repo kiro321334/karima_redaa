@@ -67,3 +67,11 @@ Settings ← API Keys: خد Cloud name وAPI Key وAPI Secret.
 بيعدّل: الـ Hero (النصوص والصورة الرئيسية) · About (النبذة والأرقام) · البراندات · الخدمات · خطوات العمل · روابط التواصل.
 أي خانة روابط فاضية بتستخدم القيمة الأصلية من `lib/site.js`.
 مش متوصّل بالـ dashboard: Header وFooter وعناوين الأقسام الثابتة (زي "What I Create").
+
+## تحليلات الزوار (Microsoft Clarity)
+1. العميلة تعمل مشروع على https://clarity.microsoft.com بإيميلها وتنسخ الـ Project ID.
+2. من Settings → Data Export تعمل API token.
+3. في Vercel أضف: `NEXT_PUBLIC_CLARITY_ID` و `CLARITY_API_TOKEN` ثم Redeploy.
+4. في `app/layout.js`: `import Analytics from "@/components/Analytics";` وضيف `<Analytics />` جوه `<body>`.
+- الكود بيشتغل بس بعد موافقة الزائر على الكوكيز، ومبيشتغلش في /admin.
+- تاب "الزوار" في اللوحة بيعرض آخر 3 أيام ومتخزن 12 ساعة (حد Clarity: 10 طلبات/يوم).

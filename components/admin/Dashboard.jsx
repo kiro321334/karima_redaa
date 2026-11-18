@@ -11,6 +11,7 @@ import Login from "./Login";
 import VideosTab from "./VideosTab";
 import ProductsTab from "./ProductsTab";
 import TextsTab from "./TextsTab";
+import AnalyticsTab from "./AnalyticsTab";
 
 const withAll = (cats) => ["All", ...cats.filter((c) => c !== "All")];
 
@@ -24,6 +25,7 @@ const SECTIONS = [
   ["products", "المنتجات"],
   ["steps", "خطوات العمل"],
   ["contact", "التواصل"],
+  ["analytics", "الزوار"],
 ];
 const TEXT_SECTIONS = ["hero", "about", "brands", "services", "steps", "contact"];
 
@@ -233,6 +235,7 @@ export default function Dashboard() {
 
             {content && section === "videos" && <VideosTab content={content} commit={commit} />}
             {content && section === "products" && <ProductsTab content={content} commit={commit} />}
+            {section === "analytics" && <AnalyticsTab />}
 
             {/* التعديلات اللي ما اتحفظتش بتفضل محفوظة وإنت بتتنقل بين الأقسام */}
             {content && (
