@@ -1,6 +1,7 @@
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
+import Analytics from "@/components/Analytics";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -75,6 +76,7 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }}
         />
+        <Analytics />
         {children}
       </body>
     </html>
