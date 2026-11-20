@@ -9,7 +9,7 @@ import Workflow from "@/components/sections/Workflow";
 import Contact from "@/components/sections/Contact";
 import ProductShowcase from "@/components/sections/ProductShowcase";
 import { getContent } from "@/lib/content";
-
+import RobotGuide from "@/components/RobotGuide";
 export default async function Home() {
   const { projects, categories, products, texts } = await getContent();
   return (
@@ -26,6 +26,7 @@ export default async function Home() {
         <Contact t={texts.contact} />
       </main>
       <Footer />
+  <RobotGuide whatsapp={texts.contact.whatsapp} />
     </>
   );
 }
