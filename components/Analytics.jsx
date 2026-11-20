@@ -1,64 +1,15 @@
 "use client";
-import { useEffect, useState } from "react";
 import Script from "next/script";
 import { usePathname } from "next/navigation";
 
-const KEY = "clarity-consent";
-
-// بيحمّل Microsoft Clarity بعد موافقة الزائر على الكوكيز، ومبيشتغلش في /admin
+// بيحمّل Microsoft Clarity على كل الصفحات ما عدا /admin
 export default function Analytics() {
   const id = process.env.NEXT_PUBLIC_CLARITY_ID;
   const path = usePathname();
-  const [ok, setOk] = useState(null); // null = بيتحمّل، undefined = لسه ما اتسألش
-
-  useEffect(() => {
-    try {
-      const v = localStorage.getItem(KEY);
-      setOk(v === "yes" ? true : v === "no" ? false : undefined);
-    } catch {
-      setOk(false);
-    }
-  }, []);
 
   if (!id || !/^[a-z0-9]{6,20}$/i.test(id) || path?.startsWith("/admin")) return null;
 
-  const choose = (v) => {
-    try {
-      localStorage.setItem(KEY, v ? "yes" : "no");
-    } catch {}
-    setOk(v);
-  };
-
   return (
-    <>
-      {ok === true && (
-        <Script id="ms-clarity-init" strategy="afterInteractive">{`(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script",${JSON.stringify(id)});`}</Script>
-      )}
-      {ok === undefined && (
-        <div
-          role="dialog"
-          aria-label="Cookies"
-          className="fixed bottom-4 left-4 right-4 z-50 rounded-2xl border border-wine/20 bg-white p-4 text-[13px] leading-relaxed shadow-xl sm:right-auto sm:max-w-sm"
-        >
-          <p>We use Microsoft Clarity (cookies) to understand how visitors use this site.</p>
-          <div className="mt-3 flex gap-2">
-            <button
-              type="button"
-              onClick={() => choose(true)}
-              className="rounded-full bg-wine px-4 py-2 text-xs font-semibold text-white"
-            >
-              Accept
-            </button>
-            <button
-              type="button"
-              onClick={() => choose(false)}
-              className="rounded-full border border-wine/30 px-4 py-2 text-xs font-semibold text-wine"
-            >
-              Decline
-            </button>
-          </div>
-        </div>
-      )}
-    </>
+    <Script id="ms-clarity-init" strategy="afterInteractive">{`(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script",${JSON.stringify(id)});`}</Script>
   );
 }
