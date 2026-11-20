@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 
-const KEY = "robot-guide-closed";
 const R = 96; // نصف قطر نص الدايرة
 const ITEMS = [
   ["About", "about"],
@@ -44,12 +43,16 @@ export default function RobotGuide({ whatsapp }) {
   const [hello, setHello] = useState(true);
 
   useEffect(() => {
-    try {
-      if (sessionStorage.getItem(KEY)) return;
-    } catch {}
-    const t = setTimeout(() => setShow(true), 2500);
+    const t = setTimeout(() => setShow(true), 1500);
     return () => clearTimeout(t);
   }, []);
+
+  // الرسالة بتختفي لوحدها بعد شوية عشان ما تغطيش المحتوى
+  useEffect(() => {
+    if (!show) return;
+    const t = setTimeout(() => setHello(false), 9000);
+    return () => clearTimeout(t);
+  }, [show]);
 
   useEffect(() => {
     if (!open) return;
@@ -59,10 +62,7 @@ export default function RobotGuide({ whatsapp }) {
   }, [open]);
 
   const close = () => {
-    try {
-      sessionStorage.setItem(KEY, "1");
-    } catch {}
-    setShow(false);
+    setShow(false); // بيرجع يظهر مع كل فتحة جديدة للموقع
     setOpen(false);
   };
 
@@ -87,15 +87,17 @@ export default function RobotGuide({ whatsapp }) {
   if (!show) return null;
 
   return (
-    <div className="rg-root fixed bottom-36 right-3 z-40 print:hidden">
+    <div className="rg-root fixed bottom-[46dvh] right-3 z-40 sm:bottom-36 print:hidden">
       <style>{`
         .rg-root{animation:rg-in .6s cubic-bezier(.2,1.3,.4,1) both}
         .rg-bot{animation:rg-float 3.2s ease-in-out infinite}
         .rg-eyes{transform-origin:32px 32px;animation:rg-blink 4s infinite}
+        .rg-pulse{animation:rg-pulse 2s ease-out infinite}
+        @keyframes rg-pulse{0%{box-shadow:0 0 0 0 rgba(163,23,79,.45)}100%{box-shadow:0 0 0 16px rgba(163,23,79,0)}}
         @keyframes rg-in{from{opacity:0;transform:translateX(80px)}to{opacity:1;transform:none}}
         @keyframes rg-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
         @keyframes rg-blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
-        @media (prefers-reduced-motion:reduce){.rg-root,.rg-bot,.rg-eyes{animation:none}}
+        @media (prefers-reduced-motion:reduce){.rg-root,.rg-bot,.rg-eyes,.rg-pulse{animation:none}}
       `}</style>
 
       <div className="relative h-16 w-16">
@@ -124,8 +126,18 @@ export default function RobotGuide({ whatsapp }) {
         })}
 
         {hello && !open && (
-          <div className="absolute bottom-full right-0 mb-3 w-52 rounded-2xl rounded-br-sm border border-wine/20 bg-white p-3 pr-7 text-[13px] leading-snug shadow-xl">
-            Welcome! What would you like to know about me first?
+          <div className="absolute bottom-full right-0 mb-3 w-48 rounded-2xl rounded-br-sm border border-wine/20 bg-white p-3 pr-7 text-[13px] leading-snug shadow-xl">
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(true);
+                setHello(false);
+              }}
+              className="block text-left"
+            >
+              Welcome! What would you like to know about me first?
+              <span className="mt-1 block text-[11px] font-semibold text-wine">Tap here to choose ↓</span>
+            </button>
             <button
               type="button"
               aria-label="Dismiss message"
@@ -145,7 +157,7 @@ export default function RobotGuide({ whatsapp }) {
             setOpen((v) => !v);
             setHello(false);
           }}
-          className="rg-bot relative h-16 w-16 rounded-full bg-white p-1.5 shadow-xl ring-2 ring-wine/30 transition hover:ring-wine"
+          className={`rg-bot ${hello && !open ? "rg-pulse" : ""} relative h-16 w-16 rounded-full bg-white p-1.5 shadow-xl ring-2 ring-wine/30 transition hover:ring-wine`}
         >
           <Robot />
         </button>
